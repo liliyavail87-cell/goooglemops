@@ -4,6 +4,12 @@
 
 > Это не баг. Это концепция.
 
+## Где поиграть
+
+- **Веб-версия (GitHub Pages):** <https://liliyavail87-cell.github.io/goooglemops/>
+- **itch.io:** <https://avatar184.itch.io/goooglemops>
+- **APK для Android:** <https://github.com/liliyavail87-cell/goooglemops/releases/latest/download/GooogleMops.apk>
+
 ## Как запустить
 
 Самый простой способ — открыть `index.html` двойным кликом.
