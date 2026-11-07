@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GooogleMops — найдётся не всё</title>
+<meta name="description" content="GooogleMops — поисковая система, которая пердит, сопит, распускает слюни и не приносит никакой пользы. Это не баг, это концепция.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐶</text></svg>">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="logo" href="#" aria-label="GooogleMops — на главную">
+    <span class="logo__text"><span class="l-blue">G</span><span class="l-red">o</span><span class="l-yellow">o</span><span class="l-blue">o</span><span class="l-green">g</span><span class="l-red">l</span><span class="l-blue">e</span><span class="logo__mops">Mops</span></span>
+    <span class="logo__pug" aria-hidden="true">🐶</span>
+  </a>
+  <button class="sound" id="soundToggle" type="button" aria-pressed="true" aria-label="Выключить звук" title="Звук">🔊</button>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="kicker">Бесполезный поиск · с 2026 года</p>
+    <h1>Найдётся <span class="hl">не всё</span>.</h1>
+    <p class="sub">Пердит, сопит, пускает слюни и не приносит пользы. Мы проверяли.</p>
+
+    <form class="search" id="searchForm" role="search">
+      <span class="search__icon" aria-hidden="true">🔍</span>
+      <input type="search" id="q" name="q" autocomplete="off" spellcheck="false" placeholder="Что бесполезного вы ищете?" aria-label="Поисковый запрос">
+      <button class="btn btn--primary" type="submit">Мопс-поиск</button>
+      <button class="btn btn--ghost" type="button" id="lucky">Мне повезёт (нет)</button>
+    </form>
+
+    <div class="toasts" id="toasts" aria-live="polite"></div>
+
+    <section class="results" id="results" aria-live="polite">
+      <div class="results__head">
+        <h2 class="results__title">Результаты поиска</h2>
+        <span class="results__count" id="resultsCount">Поиск не начат · пользы не будет</span>
+      </div>
+      <div class="filters" role="group" aria-label="Бесполезные фильтры">
+        <button class="filter is-active" type="button">Всё</button>
+        <button class="filter" type="button">Слюни</button>
+        <button class="filter" type="button">Газы</button>
+        <button class="filter" type="button">Мудрости</button>
+      </div>
+      <div class="results__list" id="resultsList">
+        <div class="results__empty">Здесь будут результаты поиска. Мопс уже смотрит в стену.</div>
+      </div>
+      <p class="results__note">Показаны не все результаты. Остальные мопс съел. Мудрости Стэтхэма выдуманы, как и польза.</p>
+    </section>
+
+    <div class="chips" aria-label="Популярные бесполезные запросы">
+      <button class="chip" type="button">мопс в смокинге</button>
+      <button class="chip" type="button">бесполезные советы</button>
+      <button class="chip" type="button">почему носки исчезают</button>
+      <button class="chip" type="button">слюни на клавиатуре</button>
+      <button class="chip" type="button">мудрость Стэтхэма</button>
+    </div>
+    <p class="footnote">* мы не поисковик. мы мопс.</p>
+  </section>
+
+  <section class="stage" id="stage">
+    <div class="pug-col">
+      <div class="bubble" id="bubble" role="status" aria-live="polite">…</div>
+      <div class="pug-wrap" id="pugWrap" role="button" tabindex="0" aria-label="Погладить мопса">
+        <div class="pug-body" id="pug">
+          <img class="pug-photo" src="assets/pug.png" width="572" height="458" alt="Реалистичный мопс крупным планом" draggable="false">
+          <svg class="pug-overlay" viewBox="0 0 572 458" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <linearGradient id="droolGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f2fbff" stop-opacity=".95"/>
+                <stop offset="100%" stop-color="#a9d8f5" stop-opacity=".55"/>
+              </linearGradient>
+            </defs>
+            <path class="drool-strand" d="M240 342 q-14 26 -1 48 q12 20 4 36" stroke="url(#droolGrad)" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <circle class="drool-drop" cx="245" cy="432" r="7" fill="#bfe6ff"/>
+            <circle class="snot" cx="362" cy="284" r="10" fill="rgba(205,238,255,.5)" stroke="rgba(255,255,255,.9)" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+      <div class="fx" id="fx" aria-hidden="true"></div>
+    </div>
+
+    <aside class="panel" aria-label="Пульт мопса">
+      <div class="panel__head">
+        <h2 class="panel__title">Пульт мопса</h2>
+        <div class="panel__useless">
+          <span class="stat__num" id="statUseless">0,0%</span>
+          <span class="stat__label">пользы</span>
+        </div>
+      </div>
+
+      <div class="controls" role="group" aria-label="Кнопки мопса">
+        <div class="ctrl-cell">
+          <button class="ctrl" type="button" data-action="drool">
+            <span class="ctrlem" aria-hidden="true">💧</span>
+            <span class="ctrlname">Слюни</span>
+            <span class="ctrlsub">обильно</span>
+            <kbd>D</kbd>
+          </button>
+          <div class="stat"><span class="stat__num" id="statDrool">0</span><span class="stat__label">мл слюней</span></div>
+        </div>
+        <div class="ctrl-cell">
+          <button class="ctrl" type="button" data-action="nothing">
+            <span class="ctrlem" aria-hidden="true">🫥</span>
+            <span class="ctrlname">Ничего</span>
+            <span class="ctrlsub">идеально</span>
+            <kbd>N</kbd>
+          </button>
+          <div class="stat"><span class="stat__num" id="statNothing">0</span><span class="stat__label">сделано ничего</span></div>
+        </div>
+        <div class="ctrl-cell">
+          <button class="ctrl" type="button" data-action="fart">
+            <span class="ctrlem" aria-hidden="true">💨</span>
+            <span class="ctrlname">Пердеть</span>
+            <span class="ctrlsub">громко и с душой</span>
+            <kbd>F</kbd>
+          </button>
+          <div class="stat"><span class="stat__num" id="statFarts">0</span><span class="stat__label">газов выпущено</span></div>
+        </div>
+        <div class="ctrl-cell">
+          <button class="ctrl" type="button" data-action="snort">
+            <span class="ctrlem" aria-hidden="true">🐽</span>
+            <span class="ctrlname">Сопеть</span>
+            <span class="ctrlsub">как настоящий</span>
+            <kbd>S</kbd>
+          </button>
+          <div class="stat"><span class="stat__num" id="statSnorts">0</span><span class="stat__label">всхрапов</span></div>
+        </div>
+      </div>
+
+      <div class="volume">
+        <div class="volume__top">
+          <label for="volume">Громкость мопса</label>
+          <output id="volumeVal" for="volume">90%</output>
+        </div>
+        <input class="volume__range" id="volume" type="range" min="0" max="100" step="1" value="90" aria-label="Громкость звуков мопса">
+      </div>
+    </aside>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p><strong>GooogleMops</strong> · слюни, газы и всхрапы · польза не обнаружена</p>
+  <p class="footer__small">© 2026 · Сделано без единого грамма смысла · Фото мопса — из архива проекта · Двойной клик по мопсу — и ничего не произойдёт.</p>
+  <p class="footer__small"><button class="linkbtn" id="resetStats" type="button">Сбросить бесполезность</button> · пользы всё равно 0</p>
+  <p class="footer__legal">Пародия. Не связано с Google LLC. Мопс настоящий, польза выдумана.</p>
+</footer>
+
+<script src="app.js" defer></script>
+</body>
+</html>
